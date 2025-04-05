@@ -5,12 +5,39 @@ return{
     -- C# LSP client
     {"OmniSharp/omnisharp-vim",
         config = function()
+
+            -- goto definition
             vim.keymap.set('n', '<leader>gd', ':OmniSharpGotoDefinition<CR>')
+
+            -- goto implementations
             vim.keymap.set('n', '<leader>gi', ':OmniSharpFindImplementations<CR>')
+
+            -- goto usages
             vim.keymap.set('n', '<leader>gu', ':OmniSharpFindUsages<CR>')
+
+            -- Re-Name
             vim.keymap.set('n', '<leader>rn', ':OmniSharpRename<CR>')
-            vim.keymap.set('n', '<leader>ti', ':OmniSharpTypeLookup<CR>')
+
+            -- Read Manual
+            vim.keymap.set('n', '<leader>rm', ':OmniSharpDocumentation<CR>')
+
+            -- Peek Definition
+            vim.keymap.set('n', '<leader>pd', ':OmniSharpPreviewDefinition<CR>')
+
+            --  Code Action
             vim.keymap.set('n', '<leader>ca', ':OmniSharpGetCodeActions<CR>')
+            -- Viusal code action gives error "No range allowed"
+            vim.keymap.set('v', '<leader>ca', ":OmniSharp#CodeActions('visual')<CR>")
+
+            -- Reload Project
+            vim.keymap.set('n', '<leader>rp', ':OmniSharpReloadProject<CR>')
+        end
+    },
+
+    -- Debugger
+    {'puremourning/vimspector',
+        init = function()
+            vim.g.vimspector_enable_mappings = 'HUMAN'
         end
     },
 
