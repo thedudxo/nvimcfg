@@ -73,5 +73,30 @@ return{
     --Outliner
     {'neoclide/coc.nvim',
         branch = 'release'
+    },
+ 
+    -- Keep cursor centered on screen
+    {'arnamak/stay-centered.nvim',
+        lazy = false,
+        opts = {
+        }
+    },
+
+    --Allow scrolling up above the top of the file
+    {'nullromo/go-up.nvim',
+        opts = {
+            --mapZZ = false,
+            --respectScrolloff = true,
+            goUpLimit = 'center'},
+        config = function(_, opts)
+            local goUp = require('go-up')
+            goUp.setup(opts)
+            vim.api.nvim_create_autocmd("CursorMoved", {
+                pattern = "*",
+                callback = function()
+                    require('go-up').centerScreen();
+                end,
+            })
+        end,
     }
 }
