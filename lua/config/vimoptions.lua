@@ -10,6 +10,7 @@ vim.opt.termguicolors = true
 
 -- Line numbers
 vim.opt.number = true
+vim.opt.relativenumber = true;
 
 -- Minimal lines to keep above/below cursor
 vim.opt.scrolloff = 25
