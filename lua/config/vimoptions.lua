@@ -13,7 +13,8 @@ vim.opt.number = true
 vim.opt.relativenumber = true;
 
 -- Minimal lines to keep above/below cursor
-vim.opt.scrolloff = 25
+-- Big number keeps the cursor centerd
+vim.opt.scrolloff = 999
 
 -- 80 column indicator
 vim.opt.colorcolumn = '81'
