@@ -34,6 +34,13 @@ return{
         end
     },
 
+    -- Powershell LSP
+    {'TheLeoP/powershell.nvim',
+        opts = {
+            bundle_path = vim.fn.stdpath "data" .. '/mason/packages/powershell-editor-services'
+        }
+    },
+
     -- Debugger
     {'puremourning/vimspector',
         init = function()
