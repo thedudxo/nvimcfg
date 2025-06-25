@@ -33,3 +33,9 @@ vim.opt.listchars = { trail = '◌', tab = '▸ '}
 
 -- sensible sentinces (end with one space)
 vim.opt.joinspaces = false
+
+-- case insensitive search
+vim.opt.ignorecase = true;
+
+--uno reversed enter key
+vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
