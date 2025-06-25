@@ -98,10 +98,20 @@ return{
         config = function(_, opts)
             local goUp = require('go-up')
             goUp.setup(opts)
-            vim.api.nvim_create_autocmd("CursorMoved", {
+            vim.api.nvim_create_autocmd(
+                {"CursorMoved", "BufEnter"},{
                 pattern = "*",
                 callback = function()
                     require('go-up').centerScreen();
+                end,
+            })
+            vim.api.nvim_create_autocmd("CursorMovedI", {
+                pattern = "*",
+                callback = function()
+                    local win = vim.api.nvim_get_current_win()
+                    local cursor = vim.api.nvim_win_get_cursor(win) -- {row, col}
+                    require('go-up').centerScreen()
+                    vim.api.nvim_win_set_cursor(win, cursor)
                 end,
             })
         end,
