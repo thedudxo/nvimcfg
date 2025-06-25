@@ -83,6 +83,14 @@ return{
         branch = 'release'
     },
 
+    -- Snippets
+    -- Does not seem to be working well?
+    -- probably needs to intergrate with coc properly.
+    -- see :CocList sources
+    -- see https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
+    -- {'SirVer/ultisnips'},   -- Engine
+    -- {'honza/vim-snippets'}, -- Snippets
+
     -- Allow scrolling up above the top of the file
     {'nullromo/go-up.nvim',
         opts = {
