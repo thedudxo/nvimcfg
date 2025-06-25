@@ -83,6 +83,11 @@ return{
         branch = 'release'
     },
 
+    -- Copilot
+    {'github/copilot.vim',
+        branch = 'release'
+    },
+
     -- Snippets
     -- Does not seem to be working well?
     -- probably needs to intergrate with coc properly.
