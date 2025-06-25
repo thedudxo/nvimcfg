@@ -82,15 +82,8 @@ return{
     {'neoclide/coc.nvim',
         branch = 'release'
     },
- 
-    -- Keep cursor centered on screen
-    {'arnamak/stay-centered.nvim',
-        lazy = false,
-        opts = {
-        }
-    },
 
-    --Allow scrolling up above the top of the file
+    -- Allow scrolling up above the top of the file
     {'nullromo/go-up.nvim',
         opts = {
             --mapZZ = false,
