@@ -80,10 +80,18 @@ return{
     -- Error highligting
     -- Outliner
     {'neoclide/coc.nvim',
-        branch = 'release'
+        branch = 'release',
+        config = function()
+            -- use control-L in Autocompletion menu to refresh it.
+            -- Useful for copilot suggestions, which come in late.
+            vim.keymap.set("i", "<C-l>", function()
+              return vim.fn["coc#refresh"]()
+            end, { silent = true, expr = true })
+        end
     },
 
     -- Copilot
+    -- intergate with coc: :CocInstall @hexuhua/coc-copilot
     {'github/copilot.vim',
         branch = 'release'
     },
