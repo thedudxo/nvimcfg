@@ -49,3 +49,35 @@ vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
 -- split string at cursor
 vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true })
 
+-- stahpt arruw keys bruh
+local function show_popup(message)
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, {
+        "",
+        "  " .. message .. "  ",
+        ""
+    })
+    
+    local width = #message + 4
+    local height = 3
+    local win = vim.api.nvim_open_win(buf, false, {
+        relative = "cursor",
+        row = 1,
+        col = 1,
+        width = width,
+        height = height,
+        style = "minimal",
+        border = "rounded",
+    })
+    
+    -- Auto-close after 1 second
+    vim.defer_fn(function()
+        vim.api.nvim_win_close(win, true)
+    end, 1000)
+end
+
+-- Map arrow keys to show popup
+vim.keymap.set({'n', 'i'}, '<Up>', function() show_popup("dont touch that") end)
+vim.keymap.set({'n', 'i'}, '<Down>', function() show_popup("dont touch that") end)
+vim.keymap.set({'n', 'i'}, '<Left>', function() show_popup("dont touch that") end)
+vim.keymap.set({'n', 'i'}, '<Right>', function() show_popup("dont touch that") end)
