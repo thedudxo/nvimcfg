@@ -147,6 +147,7 @@ return{
     -- probably needs to intergrate with coc properly.
     -- see :CocList sources
     -- see https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
+    -- TODO: TRY IT WITH blink! (wasnt there before)
     -- {'SirVer/ultisnips'},   -- Engine
     -- {'honza/vim-snippets'}, -- Snippets
 
