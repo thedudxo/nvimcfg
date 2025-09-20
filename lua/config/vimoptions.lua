@@ -45,3 +45,7 @@ vim.lsp.log.set_level(vim.lsp.log.levels.OFF)
 
 -- uno reversed enter key
 vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
+
+-- split string at cursor
+vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true })
+
