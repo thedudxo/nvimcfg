@@ -126,9 +126,20 @@ return{
     },
 
     -- Copilot
-    -- intergate with coc: :CocInstall @hexuhua/coc-copilot
-    {'github/copilot.vim',
-        branch = 'release'
+    {'zbirenbaum/copilot.lua',
+        config = function()
+            require('copilot').setup({
+                suggestion = {
+                    auto_trigger = true,
+                    keymap = {
+                        accept_line = "<M-y>",
+                    },
+                },
+            filetypes = {
+                markdown = true,
+              },
+            });
+        end,
     },
 
     -- Snippets
