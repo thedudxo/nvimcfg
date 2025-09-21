@@ -70,10 +70,10 @@ return{
         config = function()
             local mason_path = vim.fn.stdpath("data") .. "/mason/bin"
             local capabilities = require('blink.cmp').get_lsp_capabilities()
-            require("lspconfig").ols.setup{
+            vim.lsp.config('ols', {
                 cmd = { mason_path .. "/ols" },
                 --capabilities = capabilities
-            }
+            })
         end
     },
 
