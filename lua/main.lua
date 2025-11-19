@@ -4,4 +4,4 @@ require("config.lazy")
 require("mason").setup()
 
 
-vim.cmd.colorscheme("jellybeans")
+vim.cmd.colorscheme("tokyonight")

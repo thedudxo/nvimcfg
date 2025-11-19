@@ -1,8 +1,8 @@
 return{
 
     -- Theme
-    --{'folke/tokyonight.nvim', name = 'tokyonight' },
-    { 'nanotech/jellybeans.vim', name = 'jellybeans' },
+    {'folke/tokyonight.nvim', name = 'tokyonight' },
+    --{ 'nanotech/jellybeans.vim', name = 'jellybeans' },
 
     -- External tooling manager, can install things like LSP, Linter, etc
     {"williamboman/mason.nvim"},

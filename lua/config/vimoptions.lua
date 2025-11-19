@@ -49,6 +49,18 @@ vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
 -- split string at cursor
 vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true })
 
+-- Neovide
+if vim.g.neovide then
+    vim.o.guifont = "GoMono Nerd Font Mono:h14"
+
+    vim.keymap.set('n', '<C-s>', ':w<CR>') -- Save
+    vim.keymap.set('v', '<C-c>', '"+y') -- Copy
+    vim.keymap.set('n', '<C-v>', '"+P') -- Paste normal mode
+    vim.keymap.set('v', '<C-v>', '"+P') -- Paste visual mode
+    vim.keymap.set('c', '<C-v>', '<C-R>+') -- Paste command mode
+    vim.keymap.set('i', '<C-v>', '<ESC>l"+Pli') -- Paste insert mode
+end
+
 -- stahpt arruw keys bruh
 local function show_popup(message)
     local buf = vim.api.nvim_create_buf(false, true)
