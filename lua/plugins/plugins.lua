@@ -64,11 +64,13 @@ return{
         config = function()
             require('copilot').setup({
                 suggestion = {
-                    auto_trigger = true,
-                    keymap = {
-                        accept_line = "<M-y>",
-                    },
+                    enabled = false
+                    -- auto_trigger = true,
+                    -- keymap = {
+                    --     accept_line = "<M-y>",
+                    -- },
                 },
+                panel = { enabled = false },
                 filetypes = {
                     markdown = true,
                   },
@@ -76,55 +78,55 @@ return{
         end,
     },
 
-    -- C# LSP client
-    {"OmniSharp/omnisharp-vim",
-        config = function()
-            vim.g.OmniSharp_want_snippet = 1
+    -- -- C# LSP client
+    -- {"OmniSharp/omnisharp-vim",
+    --     config = function()
+    --         vim.g.OmniSharp_want_snippet = 1
+    --
+    --         -- goto definition
+    --         vim.keymap.set('n', '<leader>gd', ':OmniSharpGotoDefinition<CR>')
+    --
+    --         -- goto implementations
+    --         vim.keymap.set('n', '<leader>gi', ':OmniSharpFindImplementations<CR>')
+    --
+    --         -- goto usages
+    --         vim.keymap.set('n', '<leader>gu', ':OmniSharpFindUsages<CR>')
+    --
+    --         -- Re-Name
+    --         vim.keymap.set('n', '<leader>rn', ':OmniSharpRename<CR>')
+    --
+    --         -- Read Manual
+    --         vim.keymap.set('n', '<leader>rm', ':OmniSharpDocumentation<CR>')
+    --
+    --         -- Peek Definition
+    --         vim.keymap.set('n', '<leader>pd', ':OmniSharpPreviewDefinition<CR>')
+    --
+    --         --  Code Action
+    --         vim.keymap.set('n', '<leader>ca', ':OmniSharpGetCodeActions<CR>')
+    --         -- Viusal code action gives error "No range allowed"
+    --         vim.keymap.set('v', '<leader>ca', ":OmniSharp#CodeActions('visual')<CR>")
+    --
+    --         -- Reload Project
+    --         vim.keymap.set('n', '<leader>rp', ':OmniSharpReloadProject<CR>')
+    --
+    --         -- Global code check
+    --         vim.keymap.set('n', '<leader>cc', ':OmniSharpGlobalCodeCheck<CR>')
+    --
+    --         vim.g.OmniSharp_popup_options = {
+    --             border = 'rounded'
+    --         }
+    --         vim.g.OmniSharp_popup_position = 'center'
+    --     end
+    -- },
 
-            -- goto definition
-            vim.keymap.set('n', '<leader>gd', ':OmniSharpGotoDefinition<CR>')
-
-            -- goto implementations
-            vim.keymap.set('n', '<leader>gi', ':OmniSharpFindImplementations<CR>')
-
-            -- goto usages
-            vim.keymap.set('n', '<leader>gu', ':OmniSharpFindUsages<CR>')
-
-            -- Re-Name
-            vim.keymap.set('n', '<leader>rn', ':OmniSharpRename<CR>')
-
-            -- Read Manual
-            vim.keymap.set('n', '<leader>rm', ':OmniSharpDocumentation<CR>')
-
-            -- Peek Definition
-            vim.keymap.set('n', '<leader>pd', ':OmniSharpPreviewDefinition<CR>')
-
-            --  Code Action
-            vim.keymap.set('n', '<leader>ca', ':OmniSharpGetCodeActions<CR>')
-            -- Viusal code action gives error "No range allowed"
-            vim.keymap.set('v', '<leader>ca', ":OmniSharp#CodeActions('visual')<CR>")
-
-            -- Reload Project
-            vim.keymap.set('n', '<leader>rp', ':OmniSharpReloadProject<CR>')
-
-            -- Global code check
-            vim.keymap.set('n', '<leader>cc', ':OmniSharpGlobalCodeCheck<CR>')
-
-            vim.g.OmniSharp_popup_options = {
-                border = 'rounded'
-            }
-            vim.g.OmniSharp_popup_position = 'center'
-        end
-    },
-
-    -- Autocompletion
-    -- Error highligting
-    -- Outliner
-    -- intergrates with omnisharp
-    {'neoclide/coc.nvim',
-        branch = 'release',
-        ft = { 'cs', 'csproj', 'sln', 'slnx' },
-    },
+    -- -- Autocompletion
+    -- -- Error highligting
+    -- -- Outliner
+    -- -- intergrates with omnisharp
+    -- {'neoclide/coc.nvim',
+    --     branch = 'release',
+    --     ft = { 'cs', 'csproj', 'sln', 'slnx' },
+    -- },
 
     -- Powershell LSP
     {'TheLeoP/powershell.nvim',
@@ -135,15 +137,51 @@ return{
     },
 
     {'saghen/blink.cmp',
-        dependencies = { 'rafamadriz/friendly-snippets' },
-        ft = { 'odin' },
+        dependencies = {
+            'rafamadriz/friendly-snippets',
+            'fang2hou/blink-copilot'
+        },
         opts = {
-            keymap = { preset = 'default' },
+            keymap = {
+                preset = 'default',
+                ['<C-space>'] = {
+                    function(cmp)
+                        cmp.show({ providers = { 
+                            'copilot',
+                            'snippets' 
+                            }
+                        }) 
+                    end 
+                },
+            },
             appearance = {
                 use_nvim_cmp_as_default = true,
                 nerd_font_variant = 'mono'
             },
-            signature = { enabled = true }
+            sources = {
+                default = {
+                    'lsp',
+                    'buffer',
+                    'snippets',
+                    'path',
+                    'copilot'
+                },
+                providers = {
+                    copilot = {
+                        name = 'copilot',
+                        module = 'blink-copilot',
+                        score_offset = 100,
+                        async = true
+                    }
+                }
+            },
+            signature = { enabled = true },
+            completion = {
+                documentation = {
+                  auto_show = true,
+                  auto_show_delay_ms = 200,
+                }
+            }
         },
     },
 
@@ -152,7 +190,6 @@ return{
         dependencies = {
             'saghen/blink.cmp',
         },
-        ft = { 'odin' },
         config = function()
             local mason_path = vim.fn.stdpath("data") .. "/mason/bin"
             local capabilities = require('blink.cmp').get_lsp_capabilities()
@@ -165,8 +202,13 @@ return{
                     enable_semantic_tokens = true,
                 }
             })
+            vim.lsp.config('csharp_ls', {
+                capabilities = capabilities,
+                filetypes = { "cs" }
+            })
 
             vim.lsp.enable('ols')
+            vim.lsp.enable('csharp_ls')
         end
     },
 
