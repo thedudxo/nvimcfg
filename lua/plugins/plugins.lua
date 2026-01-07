@@ -137,6 +137,7 @@ return{
     },
 
     {'saghen/blink.cmp',
+        version = '1.*',
         dependencies = {
             'rafamadriz/friendly-snippets',
             'fang2hou/blink-copilot'
@@ -181,7 +182,17 @@ return{
                   auto_show = true,
                   auto_show_delay_ms = 200,
                 }
-            }
+            },
+            fuzzy = {
+                implementation = 'prefer_rust_with_warning',
+                max_typos = function(keyword) 
+                    return math.floor(#keyword / 4)
+                end,
+                frecency = {
+                    enabled = true,
+                    path = vim.fn.stdpath('state') .. '/blink/cmp/frecency.dat',
+                },
+            },
         },
     },
 
