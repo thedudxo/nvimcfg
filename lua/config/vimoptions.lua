@@ -40,5 +40,8 @@ vim.opt.joinspaces = false
 -- case insensitive search
 vim.opt.ignorecase = true;
 
---uno reversed enter key
+-- Turn of LSP log (it gets huge)
+vim.lsp.log.set_level(vim.lsp.log.levels.OFF)
+
+-- uno reversed enter key
 vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
