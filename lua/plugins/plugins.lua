@@ -34,5 +34,12 @@ return{
                 indent = {char = '┊'}
             })
         end
+    },
+
+    --Autocompletion
+    --Error highligting
+    --Outliner
+    {'neoclide/coc.nvim',
+        branch = 'release'
     }
 }
