@@ -65,10 +65,6 @@ return{
             require('copilot').setup({
                 suggestion = {
                     enabled = false
-                    -- auto_trigger = true,
-                    -- keymap = {
-                    --     accept_line = "<M-y>",
-                    -- },
                 },
                 panel = { enabled = false },
                 filetypes = {
@@ -78,61 +74,25 @@ return{
         end,
     },
 
-    -- -- C# LSP client
-    -- {"OmniSharp/omnisharp-vim",
-    --     config = function()
-    --         vim.g.OmniSharp_want_snippet = 1
-    --
-    --         -- goto definition
-    --         vim.keymap.set('n', '<leader>gd', ':OmniSharpGotoDefinition<CR>')
-    --
-    --         -- goto implementations
-    --         vim.keymap.set('n', '<leader>gi', ':OmniSharpFindImplementations<CR>')
-    --
-    --         -- goto usages
-    --         vim.keymap.set('n', '<leader>gu', ':OmniSharpFindUsages<CR>')
-    --
-    --         -- Re-Name
-    --         vim.keymap.set('n', '<leader>rn', ':OmniSharpRename<CR>')
-    --
-    --         -- Read Manual
-    --         vim.keymap.set('n', '<leader>rm', ':OmniSharpDocumentation<CR>')
-    --
-    --         -- Peek Definition
-    --         vim.keymap.set('n', '<leader>pd', ':OmniSharpPreviewDefinition<CR>')
-    --
-    --         --  Code Action
-    --         vim.keymap.set('n', '<leader>ca', ':OmniSharpGetCodeActions<CR>')
-    --         -- Viusal code action gives error "No range allowed"
-    --         vim.keymap.set('v', '<leader>ca', ":OmniSharp#CodeActions('visual')<CR>")
-    --
-    --         -- Reload Project
-    --         vim.keymap.set('n', '<leader>rp', ':OmniSharpReloadProject<CR>')
-    --
-    --         -- Global code check
-    --         vim.keymap.set('n', '<leader>cc', ':OmniSharpGlobalCodeCheck<CR>')
-    --
-    --         vim.g.OmniSharp_popup_options = {
-    --             border = 'rounded'
-    --         }
-    --         vim.g.OmniSharp_popup_position = 'center'
-    --     end
-    -- },
+    {
+        "NickvanDyke/opencode.nvim",
+        config = function()
+            ---@type opencode.Opts
+            vim.g.opencode_opts = {}
 
-    -- -- Autocompletion
-    -- -- Error highligting
-    -- -- Outliner
-    -- -- intergrates with omnisharp
-    -- {'neoclide/coc.nvim',
-    --     branch = 'release',
-    --     ft = { 'cs', 'csproj', 'sln', 'slnx' },
-    -- },
+            -- Required for `opts.events.reload`.
+            vim.o.autoread = true
+
+            require("keymaps.opencode")
+        end,
+    },
 
     -- Powershell LSP
     {'TheLeoP/powershell.nvim',
         ft = { 'ps1' },
         opts = {
-            bundle_path = vim.fn.stdpath "data" .. '/mason/packages/powershell-editor-services'
+            bundle_path = vim.fn.stdpath "data"
+                .. '/mason/packages/powershell-editor-services'
         }
     },
 
@@ -149,7 +109,7 @@ return{
                     function(cmp)
                         cmp.show({ providers = { 
                             'copilot',
-                            'snippets' 
+                            'snippets'
                             }
                         }) 
                     end 
@@ -168,10 +128,13 @@ return{
                     'copilot'
                 },
                 providers = {
+                    lsp = {
+                        fallback = {}
+                    },
                     copilot = {
                         name = 'copilot',
                         module = 'blink-copilot',
-                        score_offset = 100,
+                        -- score_offset = 100,
                         async = true
                     }
                 }
@@ -190,7 +153,8 @@ return{
                 end,
                 frecency = {
                     enabled = true,
-                    path = vim.fn.stdpath('state') .. '/blink/cmp/frecency.dat',
+                    path = vim.fn.stdpath('state')
+                        .. '/blink/cmp/frecency.dat',
                 },
             },
         },
@@ -223,16 +187,12 @@ return{
         end
     },
 
-    -- Debugger
-    {'puremourning/vimspector',
-         ft = { 'cs' },
-         init = function()
-             vim.g.vimspector_enable_mappings = 'HUMAN'
-         end
-    },
+    -- -- Debugger
+    -- {'puremourning/vimspector',
+    --      ft = { 'cs' },
+    --      init = function()
+    --          vim.g.vimspector_enable_mappings = 'HUMAN'
+    --      end
+    -- },
 
-    -- Snippets
-    -- TODO: TRY IT WITH blink! (wasnt there before)
-    -- {'SirVer/ultisnips'},   -- Engine
-    -- {'honza/vim-snippets'}, -- Snippets
 }

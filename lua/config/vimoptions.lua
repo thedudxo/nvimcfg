@@ -1,16 +1,16 @@
--- From lazy.nvim example:
+-- From lazy.nvim:
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Full colour support
 vim.opt.termguicolors = true
 
--- Line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true;
+-- no left coloumn 
+vim.opt.number = false 
+vim.opt.relativenumber = false
+vim.opt.signcolumn = "no"
 
 -- Minimal lines to keep above/below cursor
 -- Big number keeps the cursor centerd
@@ -24,7 +24,7 @@ vim.opt.tabstop = 4       -- Tab size
 vim.opt.shiftwidth = 4    -- Autoindent spaces
 vim.opt.expandtab = true  -- Convert tabs to spaces
 
--- Clipboard
+-- Clipboard (sync with system clipboard)
 vim.opt.clipboard = 'unnamedplus'
 
 -- Show whitespace
@@ -53,7 +53,6 @@ vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true }
 if vim.g.neovide then
     vim.o.guifont = "GoMono Nerd Font Mono:h14"
 
-    vim.keymap.set('n', '<C-s>', ':w<CR>') -- Save
     vim.keymap.set('v', '<C-c>', '"+y') -- Copy
     vim.keymap.set('n', '<C-v>', '"+P') -- Paste normal mode
     vim.keymap.set('v', '<C-v>', '"+P') -- Paste visual mode

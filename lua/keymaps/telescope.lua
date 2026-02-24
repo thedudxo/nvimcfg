@@ -10,3 +10,9 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {
 
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {
     desc = 'Telescope help tags' })
+
+vim.keymap.set('n', '<leader>fs', builtin.git_status, {
+    desc = 'Telescope git status' })
+
+vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, {
+    desc = 'Telescope fuzzy search in buffer' })
