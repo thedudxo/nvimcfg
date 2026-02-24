@@ -50,12 +50,39 @@ return{
         }
     },
 
-    -- Debugger
-    {'puremourning/vimspector',
-        init = function()
-            vim.g.vimspector_enable_mappings = 'HUMAN'
+    {'saghen/blink.cmp',
+        dependencies = { 'rafamadriz/friendly-snippets' },
+        opts = {
+            keymap = { preset = 'default' },
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = 'mono'
+            },
+            signature = { enabled = true }
+        },
+    },
+
+    -- LspConfig
+    {'neovim/nvim-lspconfig',
+        dependencies = {
+            'saghen/blink.cmp',
+        },
+        config = function()
+            local mason_path = vim.fn.stdpath("data") .. "/mason/bin"
+            local capabilities = require('blink.cmp').get_lsp_capabilities()
+            require("lspconfig").ols.setup{
+                cmd = { mason_path .. "/ols" },
+                --capabilities = capabilities
+            }
         end
     },
+
+    -- Debugger
+    --{'puremourning/vimspector',
+    --    init = function()
+    --        vim.g.vimspector_enable_mappings = 'HUMAN'
+    --    end
+    --},
 
     -- Theme
     --{'folke/tokyonight.nvim', name = 'tokyonight' },
