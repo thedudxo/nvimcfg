@@ -2,7 +2,6 @@ return{
 
     -- Theme
     {'folke/tokyonight.nvim', name = 'tokyonight' },
-    --{ 'nanotech/jellybeans.vim', name = 'jellybeans' },
 
     -- External tooling manager, can install things like LSP, Linter, etc
     {"williamboman/mason.nvim"},
@@ -13,6 +12,25 @@ return{
         config = function()
             require("ibl").setup({
                 indent = {char = '⁚'}
+            })
+        end
+    },
+
+    -- Treesitter (syntax highlighting)
+    {'nvim-treesitter/nvim-treesitter',
+        lazy = false,
+        build = ':TSUpdate',
+        config = function()
+            local ts = require('nvim-treesitter')
+            ts.setup({})
+            ts.install({
+                    "lua",
+                    "sql",
+                    "odin",
+                    "c_sharp" })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "lua", "sql", "odin", "cs" },
+                callback = function() vim.treesitter.start() end,
             })
         end
     },
@@ -29,6 +47,7 @@ return{
             }
       end
     },
+
 
     -- Keep the cursor in the center of the screen always
     {'nullromo/go-up.nvim',
@@ -59,6 +78,32 @@ return{
         end,
     },
 
+    -- LspConfig
+    {'neovim/nvim-lspconfig',
+        dependencies = {
+            'saghen/blink.cmp',
+        },
+        config = function()
+            local mason_path = vim.fn.stdpath("data") .. "/mason/bin"
+            local capabilities = require('blink.cmp').get_lsp_capabilities()
+            vim.lsp.config('ols', {
+                cmd = { mason_path .. "/ols" },
+                capabilities = capabilities,
+                root_markers = {"ols.json", ".git"},
+                filetypes = { "odin" },
+                init_options = {
+                    enable_semantic_tokens = true,
+                }
+            })
+            vim.lsp.config('csharp_ls', {
+                capabilities = capabilities,
+                filetypes = { "cs" }
+            })
+
+            vim.lsp.enable('ols')
+            vim.lsp.enable('csharp_ls')
+        end
+    },
     -- Copilot
     {'zbirenbaum/copilot.lua',
         config = function()
@@ -74,19 +119,6 @@ return{
         end,
     },
 
-    {
-        "NickvanDyke/opencode.nvim",
-        config = function()
-            ---@type opencode.Opts
-            vim.g.opencode_opts = {}
-
-            -- Required for `opts.events.reload`.
-            vim.o.autoread = true
-
-            require("keymaps.opencode")
-        end,
-    },
-
     -- Powershell LSP
     {'TheLeoP/powershell.nvim',
         ft = { 'ps1' },
@@ -96,6 +128,7 @@ return{
         }
     },
 
+    -- Autocomplete, snippets, copilot suggestions
     {'saghen/blink.cmp',
         version = '1.*',
         dependencies = {
@@ -158,41 +191,6 @@ return{
                 },
             },
         },
-    },
-
-    -- LspConfig
-    {'neovim/nvim-lspconfig',
-        dependencies = {
-            'saghen/blink.cmp',
-        },
-        config = function()
-            local mason_path = vim.fn.stdpath("data") .. "/mason/bin"
-            local capabilities = require('blink.cmp').get_lsp_capabilities()
-            vim.lsp.config('ols', {
-                cmd = { mason_path .. "/ols" },
-                capabilities = capabilities,
-                root_markers = {"ols.json", ".git"},
-                filetypes = { "odin" },
-                init_options = {
-                    enable_semantic_tokens = true,
-                }
-            })
-            vim.lsp.config('csharp_ls', {
-                capabilities = capabilities,
-                filetypes = { "cs" }
-            })
-
-            vim.lsp.enable('ols')
-            vim.lsp.enable('csharp_ls')
-        end
-    },
-
-    -- -- Debugger
-    -- {'puremourning/vimspector',
-    --      ft = { 'cs' },
-    --      init = function()
-    --          vim.g.vimspector_enable_mappings = 'HUMAN'
-    --      end
-    -- },
+    }
 
 }
