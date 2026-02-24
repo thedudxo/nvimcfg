@@ -76,9 +76,9 @@ return{
         end
     },
 
-    --Autocompletion
-    --Error highligting
-    --Outliner
+    -- Autocompletion
+    -- Error highligting
+    -- Outliner
     {'neoclide/coc.nvim',
         branch = 'release'
     },
