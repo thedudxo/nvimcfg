@@ -32,6 +32,14 @@ return{
 
             -- Reload Project
             vim.keymap.set('n', '<leader>rp', ':OmniSharpReloadProject<CR>')
+
+            -- Global code check
+            vim.keymap.set('n', '<leader>cc', ':OmniSharpGlobalCodeCheck<CR>')
+
+            vim.g.OmniSharp_popup_options = {
+                border = 'rounded'
+            }
+            vim.g.OmniSharp_popup_position = 'center'
         end
     },
 
