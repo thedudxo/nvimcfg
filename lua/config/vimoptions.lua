@@ -24,6 +24,9 @@ vim.opt.tabstop = 4       -- Tab size
 vim.opt.shiftwidth = 4    -- Autoindent spaces
 vim.opt.expandtab = true  -- Convert tabs to spaces
 
+-- Clipboard
+vim.opt.clipboard = 'unnamedplus'
+
 -- Show whitespace
 vim.opt.list = true
 vim.opt.listchars = { trail = '◌', tab = '▸ '}
