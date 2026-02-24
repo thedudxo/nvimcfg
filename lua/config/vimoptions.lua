@@ -30,3 +30,6 @@ vim.opt.listchars = { trail = '◌', tab = '▸ '}
 -- Here is some whitespace for visualising:
 --			
 --                
+
+-- sensible sentinces (end with one space)
+vim.opt.joinspaces = false
