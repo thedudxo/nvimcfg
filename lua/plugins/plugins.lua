@@ -10,7 +10,11 @@ return{
 
     -- Telescope (file navigation)
     {'nvim-telescope/telescope.nvim',
-      dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require("keymaps.telescope")
+      end
+    },
 
     -- Indentation guidelines
     {"lukas-reineke/indent-blankline.nvim",
