@@ -3,7 +3,16 @@ return{
     {"williamboman/mason.nvim"},
 
     -- C# LSP client
-    {"OmniSharp/omnisharp-vim"},
+    {"OmniSharp/omnisharp-vim",
+        config = function()
+            vim.keymap.set('n', '<leader>gd', ':OmniSharpGotoDefinition<CR>')
+            vim.keymap.set('n', '<leader>gi', ':OmniSharpFindImplementations<CR>')
+            vim.keymap.set('n', '<leader>gu', ':OmniSharpFindUsages<CR>')
+            vim.keymap.set('n', '<leader>rn', ':OmniSharpRename<CR>')
+            vim.keymap.set('n', '<leader>ti', ':OmniSharpTypeLookup<CR>')
+            vim.keymap.set('n', '<leader>ca', ':OmniSharpGetCodeActions<CR>')
+        end
+    },
 
     -- Theme
     --{'folke/tokyonight.nvim', name = 'tokyonight' },
