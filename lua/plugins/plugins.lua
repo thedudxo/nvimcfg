@@ -6,7 +6,8 @@ return{
     {"OmniSharp/omnisharp-vim"},
 
     -- Theme
-    {'folke/tokyonight.nvim', name = 'tokyonight' },
+    --{'folke/tokyonight.nvim', name = 'tokyonight' },
+    { 'nanotech/jellybeans.vim', name = 'jellybeans' },
 
     -- Telescope (file navigation)
     {'nvim-telescope/telescope.nvim',
