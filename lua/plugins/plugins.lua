@@ -50,6 +50,11 @@ return{
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             require("keymaps.telescope")
+            require("telescope").setup {
+                defaults = {
+                    path_display = {"filename_first"}
+                }
+            }
       end
     },
 
