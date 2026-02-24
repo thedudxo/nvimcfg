@@ -12,7 +12,7 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 
 -- Minimal lines to keep above/below cursor
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 25
 
 -- 80 column indicator
 vim.opt.colorcolumn = '81'
