@@ -158,8 +158,15 @@ return{
             local capabilities = require('blink.cmp').get_lsp_capabilities()
             vim.lsp.config('ols', {
                 cmd = { mason_path .. "/ols" },
-                capabilities = capabilities
+                capabilities = capabilities,
+                root_markers = {"ols.json", ".git"},
+                filetypes = { "odin" },
+                init_options = {
+                    enable_semantic_tokens = true,
+                }
             })
+
+            vim.lsp.enable('ols')
         end
     },
 
