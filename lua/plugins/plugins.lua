@@ -5,6 +5,7 @@ return{
     -- C# LSP client
     {"OmniSharp/omnisharp-vim",
         config = function()
+            vim.g.OmniSharp_want_snippet = 1
 
             -- goto definition
             vim.keymap.set('n', '<leader>gd', ':OmniSharpGotoDefinition<CR>')
