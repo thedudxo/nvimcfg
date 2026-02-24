@@ -38,7 +38,10 @@ vim.opt.listchars = { trail = '◌', tab = '▸ '}
 vim.opt.joinspaces = false
 
 -- case insensitive search
-vim.opt.ignorecase = true;
+vim.opt.ignorecase = true
+
+-- round borders for floating windows
+vim.opt.winborder = "rounded"
 
 -- Turn of LSP log (it gets huge)
 vim.lsp.log.set_level(vim.lsp.log.levels.OFF)
