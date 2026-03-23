@@ -29,8 +29,9 @@ vim.opt.clipboard = 'unnamedplus'
 
 -- Show whitespace
 vim.opt.list = true
-vim.opt.listchars = { trail = '◌', tab = '▸ '}
+vim.opt.listchars = { trail = '⊠', tab = '▸ '}
 -- Here is some whitespace for visualising:
+-- some(code); 
 --			
 --                
 
@@ -54,7 +55,7 @@ vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true }
 
 -- Neovide
 if vim.g.neovide then
-    vim.o.guifont = "GoMono Nerd Font Mono:h14"
+    vim.o.guifont = "GoMono Nerd Font Mono:h12"
 
     vim.keymap.set('v', '<C-c>', '"+y') -- Copy
     vim.keymap.set('n', '<C-v>', '"+P') -- Paste normal mode

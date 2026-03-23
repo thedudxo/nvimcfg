@@ -16,7 +16,6 @@ return{
         end
     },
 
-    -- Treesitter (syntax highlighting)
     {'nvim-treesitter/nvim-treesitter',
         lazy = false,
         build = ':TSUpdate',
@@ -35,7 +34,6 @@ return{
         end
     },
 
-    -- Telescope (file navigation)
     {'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
@@ -47,7 +45,6 @@ return{
             }
       end
     },
-
 
     -- Keep the cursor in the center of the screen always
     {'nullromo/go-up.nvim',
