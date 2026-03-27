@@ -134,15 +134,19 @@ return{
         },
         opts = {
             keymap = {
-                preset = 'default',
+                preset = "none",
+                ["<C-j>"] = { "select_next", "fallback" },
+                ["<C-k>"] = { "select_prev", "fallback" },
+                ["<C-l>"] = { "select_and_accept", "fallback" },
+                ["<C-e>"] = { "hide", "fallback" },
                 ['<C-space>'] = {
                     function(cmp)
-                        cmp.show({ providers = { 
+                        cmp.show({ providers = {
                             'copilot',
                             'snippets'
                             }
-                        }) 
-                    end 
+                        })
+                    end
                 },
             },
             appearance = {
