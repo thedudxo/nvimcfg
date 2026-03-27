@@ -46,6 +46,7 @@ vim.opt.winborder = "rounded"
 
 -- Turn of LSP log (it gets huge)
 vim.lsp.log.set_level(vim.lsp.log.levels.OFF)
+-- vim.lsp.log.set_level(vim.lsp.log.levels.INFO)
 
 -- uno reversed enter key
 vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
