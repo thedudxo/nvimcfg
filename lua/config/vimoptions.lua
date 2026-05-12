@@ -58,6 +58,8 @@ vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true }
 if vim.g.neovide then
     vim.o.guifont = "GoMono Nerd Font Mono:h12"
 
+    vim.g.neovide_no_idle = true
+
     vim.keymap.set('v', '<C-c>', '"+y') -- Copy
     vim.keymap.set('n', '<C-v>', '"+P') -- Paste normal mode
     vim.keymap.set('v', '<C-v>', '"+P') -- Paste visual mode
@@ -73,7 +75,7 @@ local function show_popup(message)
         "  " .. message .. "  ",
         ""
     })
-    
+
     local width = #message + 4
     local height = 3
     local win = vim.api.nvim_open_win(buf, false, {
@@ -85,7 +87,7 @@ local function show_popup(message)
         style = "minimal",
         border = "rounded",
     })
-    
+
     -- Auto-close after 1 second
     vim.defer_fn(function()
         vim.api.nvim_win_close(win, true)
