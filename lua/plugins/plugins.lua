@@ -111,8 +111,16 @@ return{
                 panel = { enabled = false },
                 filetypes = {
                     markdown = true,
-                  },
-                })
+                },
+                settings = {
+                    advanced = {
+                        listCount = 10, -- #for panel
+                        inlineSuggestCount = 3, -- #for getCompletions
+                        temperature = 0.5,
+                        top_p = 0.95,
+                    }
+                }
+            })
         end,
     },
 
@@ -177,7 +185,7 @@ return{
                     copilot = {
                         name = 'copilot',
                         module = 'blink-copilot',
-                        -- score_offset = 100,
+                        score_offset = 0,
                         async = true
                     }
                 }
@@ -284,15 +292,12 @@ return{
                 },
             })
 
-            -- take extra note that i have visual selection only in v mode
-            -- technically whatever your last visual selection is, will be used
-            -- so i have this set to visual mode so i dont screw up and use an
-            -- old visual selection
-            --
-            -- likely ill add a mode check and assert on required visual mode
-            -- so just prepare for it now
-            vim.keymap.set("v", "<leader>pv", function()
+            vim.keymap.set("v", "<leader>pp", function()
                 _99.visual()
+            end)
+
+            vim.keymap.set("v", "<leader>pi", function()
+              _99.visual({additional_prompt = "Implement this function"})
             end)
 
             vim.keymap.set("n", "<leader>ps", function()
@@ -301,7 +306,7 @@ return{
 
             vim.keymap.set("n", "<leader>pb", function()
                 require("99").vibe()
-            end, { desc = "99 vibe" })
+            end)
 
             --- if you have a request you dont want to make any changes, just cancel it
             vim.keymap.set("n", "<leader>px", function()

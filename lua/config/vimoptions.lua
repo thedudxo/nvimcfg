@@ -17,7 +17,7 @@ vim.opt.signcolumn = "no"
 vim.opt.scrolloff = 999
 
 -- 80 column indicator
-vim.opt.colorcolumn = '81'
+vim.opt.colorcolumn = "81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98"
 
 -- Tabs
 vim.opt.tabstop = 4       -- Tab size
@@ -46,13 +46,25 @@ vim.opt.winborder = "rounded"
 
 -- Turn of LSP log (it gets huge)
 vim.lsp.log.set_level(vim.lsp.log.levels.OFF)
--- vim.lsp.log.set_level(vim.lsp.log.levels.INFO)
+-- vim.lsp.log.set_level(vim.lsp.log.levels.DEBUG)
+
+-- dont scribble crayons everywhere
+vim.lsp.semantic_tokens.enable(false)
 
 -- uno reversed enter key
 vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
 
 -- split string at cursor
 vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true })
+
+-- J and K to scroll half a page up/down
+vim.keymap.set({'n', 'v'}, 'K', '<C-u>', { noremap = true })
+vim.keymap.set({'n', 'v'}, 'J', '<C-d>', { noremap = true })
+-- K got stood on
+vim.keymap.set('n', '<C-k>', '<cmd>normal! K<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { noremap = true })
+-- J got stood on
+vim.keymap.set('n', '<leader>j', '<cmd>normal! J<CR>', { noremap = true })
 
 -- Neovide
 if vim.g.neovide then
@@ -66,36 +78,3 @@ if vim.g.neovide then
     vim.keymap.set('c', '<C-v>', '<C-R>+') -- Paste command mode
     vim.keymap.set('i', '<C-v>', '<ESC>l"+Pli') -- Paste insert mode
 end
-
--- stahpt arruw keys bruh
-local function show_popup(message)
-    local buf = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, {
-        "",
-        "  " .. message .. "  ",
-        ""
-    })
-
-    local width = #message + 4
-    local height = 3
-    local win = vim.api.nvim_open_win(buf, false, {
-        relative = "cursor",
-        row = 1,
-        col = 1,
-        width = width,
-        height = height,
-        style = "minimal",
-        border = "rounded",
-    })
-
-    -- Auto-close after 1 second
-    vim.defer_fn(function()
-        vim.api.nvim_win_close(win, true)
-    end, 1000)
-end
-
--- Map arrow keys to show popup
-vim.keymap.set({'n', 'i'}, '<Up>', function() show_popup("dont touch that") end)
-vim.keymap.set({'n', 'i'}, '<Down>', function() show_popup("dont touch that") end)
-vim.keymap.set({'n', 'i'}, '<Left>', function() show_popup("dont touch that") end)
-vim.keymap.set({'n', 'i'}, '<Right>', function() show_popup("dont touch that") end)
