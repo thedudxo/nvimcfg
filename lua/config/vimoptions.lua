@@ -7,7 +7,7 @@ vim.g.maplocalleader = "\\"
 -- Full colour support
 vim.opt.termguicolors = true
 
--- no left coloumn 
+-- no left coloumn
 vim.opt.number = false 
 vim.opt.relativenumber = false
 vim.opt.signcolumn = "no"
@@ -19,17 +19,23 @@ vim.opt.scrolloff = 999
 -- 80 column indicator
 vim.opt.colorcolumn = "81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98"
 
--- Tabs
+--  spaces
 vim.opt.tabstop = 4       -- Tab size
 vim.opt.shiftwidth = 4    -- Autoindent spaces
-vim.opt.expandtab = true  -- Convert tabs to spaces
+vim.opt.expandtab = true -- Convert tabs to spaces
+
+-- Tabs
+-- vim.opt.tabstop = 2       -- Tab size
+-- vim.opt.shiftwidth = 0    -- Autoindent spaces
+-- vim.opt.expandtab = false -- Convert tabs to spaces
 
 -- Clipboard (sync with system clipboard)
 vim.opt.clipboard = 'unnamedplus'
 
 -- Show whitespace
 vim.opt.list = true
-vim.opt.listchars = { trail = '⊠', tab = '▸ '}
+vim.opt.listchars = { trail = '⊠', leadtab = '  ', tab = '▸ '}
+-- vim.opt.listchars = 'trail:□,tab:→ ,leadtab:  '
 -- Here is some whitespace for visualising:
 -- some(code); 
 --			

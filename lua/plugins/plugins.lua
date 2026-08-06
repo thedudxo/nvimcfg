@@ -1,20 +1,63 @@
 return{
 
     -- Theme
-    {'folke/tokyonight.nvim', name = 'tokyonight' },
+    -- {'folke/tokyonight.nvim', name = 'tokyonight' },
+    {"folke/tokyonight.nvim",
+        priority = 1000,
+        opts = {
+            on_colors = function(c)
+                -- Change palette colours globally
+                c.fg = "#bbbbbb"
+                -- c.fg_dark = "#737aa2"
+                c.blue = "#9092d1"
+                -- c.purple = "#bb9af7"
+            end,
+
+            on_highlights = function(hl, c)
+                hl.Normal = { fg = c.fg, bg = c.bg }
+                hl.Constant = { fg = c.fg, bg = c.bg }
+                hl["@variable"] = { fg = c.fg, bg = c.bg }
+                hl["@variable.member"] = { fg = c.fg, bg = c.bg }
+                hl["@variable.parameter"] = { fg = c.fg, bg = c.bg }
+                hl.Function = { fg = "#cccccc", bg = c.bg}
+                hl["@function"] = { fg = "#cccccc", bg = c.bg}
+
+                hl["@operator"] = { fg = "#9fc6c9", bg = c.bg}
+                hl.Special = { fg = "#9fc6c9", bg = c.bg}
+                hl.PreProc = { fg = "#9fc6c9", bg = c.bg}
+
+                hl.String = { fg = "#64916f", bg = c.bg}
+
+                hl["@keyword"] = { fg = c.blue, bg = c.bg }
+                hl["@type.builtin"] = { fg = c.blue, bg = c.bg }
+                hl.Type = { fg = c.blue, bg = c.bg }
+
+                hl["@punctuation.bracket"] = { fg = "#cccccc", bg = c.bg }
+                hl["@punctuation.delimiter"] = { fg = c.fg, bg = c.bg }
+
+                hl["@keyword.return"] = { fg = c.red1, bg = c.bg_dark1, underline = true, bold = true}
+                hl["@keyword.conditional"] = { fg = c.orange}
+                hl.Statement = { fg = c.orange, bg = c.bg }
+            end,
+        },
+        config = function(_, opts)
+            require("tokyonight").setup(opts)
+            vim.cmd.colorscheme("tokyonight-moon")
+        end,
+    },
 
     -- External tooling manager, can install things like LSP, Linter, etc
     {"williamboman/mason.nvim"},
 
-    -- Indentation guidelines
-    {"lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        config = function()
-            require("ibl").setup({
-                indent = {char = '⁚'}
-            })
-        end
-    },
+    -- -- Indentation guidelines
+    -- {"lukas-reineke/indent-blankline.nvim",
+    --     main = "ibl",
+    --     config = function()
+    --         require("ibl").setup({
+    --             indent = {char = '⁚'}
+    --         })
+    --     end
+    -- },
 
     {'nvim-treesitter/nvim-treesitter',
         lazy = false,
@@ -44,6 +87,33 @@ return{
                 }
             }
       end
+    },
+
+    {'dmtrKovalenko/fff.nvim',
+        build = function()
+            -- downloads a prebuilt binary or falls back to cargo build
+            require("fff.download").download_or_build_binary()
+        end,
+        opts = {
+            debug = {
+                enabled = true,
+                show_scores = true,
+            },
+        },
+        lazy = false, -- the plugin lazy-initialises itself
+        keys = {
+            { "ff", function() require('fff').find_files() end, desc = 'FFFind files' },
+            { "fg", function() require('fff').live_grep() end, desc = 'LiFFFe grep' },
+            { "fz",
+                function() require('fff').live_grep({ grep = { modes = { 'fuzzy', 'plain' } } }) end,
+                desc = 'Live fffuzy grep',
+            },
+            { "fw",
+                function() require('fff').live_grep_under_cursor() end,
+                mode = { 'n', 'x' },
+                desc = 'Search current word / selection',
+            },
+        },
     },
 
     -- Keep the cursor in the center of the screen always
