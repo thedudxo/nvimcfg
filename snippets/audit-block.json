@@ -1,0 +1,11 @@
+{
+    "Audit block": {
+        "prefix": "audit",
+        "body": [
+            "$BLOCK_COMMENT_START AUDIT-BEGIN",
+            "${1}",
+            "AUDIT-END $BLOCK_COMMENT_END"
+        ],
+        "description": "Add an audit comment block"
+    }
+}

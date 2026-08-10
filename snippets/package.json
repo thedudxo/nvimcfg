@@ -1,0 +1,15 @@
+{
+    "name": "personal-snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": ["cs", "lua", "odin", "ps1", "sql"],
+                "path": "./audit-line.json"
+            },
+            {
+                "language": "markdown",
+                "path": "./audit-block.json"
+            }
+        ]
+    }
+}
