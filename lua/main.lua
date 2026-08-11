@@ -10,7 +10,7 @@ vim.g.maplocalleader = "\\"
 vim.opt.termguicolors = true
 
 -- no left coloumn
-vim.opt.number = false 
+vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.signcolumn = "no"
 
@@ -394,7 +394,7 @@ plugins = {
             },
             fuzzy = {
                 implementation = 'prefer_rust_with_warning',
-                max_typos = function(keyword) 
+                max_typos = function(keyword)
                     return math.floor(#keyword / 4)
                 end,
                 frecency = {
@@ -420,9 +420,10 @@ plugins = {
                     path = "/tmp/" .. basename .. ".99.debug",
                     print_on_error = true,
                 },
-                -- When setting this to something that is not inside the CWD tools
-                -- such as claude code or opencode will have permission issues
-                -- and generation will fail refer to tool documentation to resolve
+                -- When setting this to something that is not inside the CWD
+                -- tools such as claude code or opencode will have permission
+                -- issues and generation will fail refer to tool documentation
+                -- to resolve
                 -- https://opencode.ai/docs/permissions/#external-directories
                 -- https://code.claude.com/docs/en/permissions#read-and-edit
                 tmp_dir = "./tmp",
@@ -432,7 +433,8 @@ plugins = {
                     custom_rules = {
                       "scratch/custom_rules/",
                     },
-                    --- Configure @file completion (all fields optional, sensible defaults)
+                    --- Configure @file completion (all fields optional,
+                    --- sensible defaults)
                     files = {
                         -- enabled = true,
                         -- max_file_size = 102400,     -- bytes, skip files larger than this
@@ -464,7 +466,8 @@ plugins = {
                 require("99").vibe()
             end)
 
-            --- if you have a request you dont want to make any changes, just cancel it
+            --- if you have a request you dont want to make any changes,
+            --- just cancel it
             vim.keymap.set("n", "<leader>px", function()
                 _99.stop_all_requests()
             end)
