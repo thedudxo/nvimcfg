@@ -7,6 +7,10 @@
                 "path": "./audit-line.json"
             },
             {
+                "language": ["csharp", "cs"],
+                "path": "./csharp.json"
+            },
+            {
                 "language": "markdown",
                 "path": "./audit-block.json"
             }

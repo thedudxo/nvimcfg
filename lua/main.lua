@@ -341,7 +341,6 @@ plugins = {
     {'saghen/blink.cmp',
         version = '1.*',
         dependencies = {
-            'rafamadriz/friendly-snippets',
             'fang2hou/blink-copilot'
         },
         opts = {
@@ -375,7 +374,33 @@ plugins = {
                 },
                 providers = {
                     lsp = {
-                        fallback = {}
+                        fallback = {},
+                        transform_items = (function()
+                            local exclusions = {
+                                ['else'] = true,
+                                ['for'] = true,
+                                ['foreach'] = true,
+                                ['forr'] = true,
+                                ['if'] = true,
+                                ['switch'] = true,
+                                ['try'] = true,
+                                ['while'] = true,
+                            }
+
+                            -- AUDIT-BEGIN
+                            -- Track only local snippet prefixes with confirmed
+                            -- exact csharp_ls conflicts. Assess additions,
+                            -- removals, and renames for conflicts, and remove
+                            -- obsolete exclusions.
+                            -- AUDIT-END
+
+                            return function(ctx, items)
+                                -- Prefer local snippets to LSP duplicates.
+                                return vim.tbl_filter(function(item)
+                                    return not exclusions[item.label]
+                                end, items)
+                            end
+                        end)()
                     },
                     copilot = {
                         name = 'copilot',
