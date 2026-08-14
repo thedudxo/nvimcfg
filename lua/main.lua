@@ -291,6 +291,56 @@ local lspconfig = {'neovim/nvim-lspconfig',
     end
 }
 
+-- put function location in statusline
+-- show file name instead of path
+vim.o.statusline = vim.o.statusline:gsub("%%f", function()
+    return "%t %{%v:lua.navic_location()%}"
+end, 1)
+
+-- provides current semantic location using treesitter or lsp
+local navic = {'SmiteshP/nvim-navic',
+    opts = {
+        lsp = {auto_attach = true},
+        depth_limit = 1,
+        depth_limit_indicator = "",
+        separator = "",
+    },
+}
+
+-- Limit trimming to callables so other symbol names remain intact.
+local callable_symbol_kinds = {
+    [vim.lsp.protocol.SymbolKind.Method] = true,
+    [vim.lsp.protocol.SymbolKind.Constructor] = true,
+    [vim.lsp.protocol.SymbolKind.Function] = true,
+}
+
+local function strip_trailing_parameters(name)
+    -- The first literal `(` separates the name from signature details.
+    local parameter_start = name:find("(", 1, true)
+    if parameter_start == nil then
+        return name
+    end
+
+    return name:sub(1, parameter_start - 1)
+end
+
+function _G.navic_location()
+    local navic = require('nvim-navic')
+    -- Keep symbol kinds; the `format_text` hook receives names only.
+    local data = navic.get_data()
+    if data == nil then
+        return ""
+    end
+
+    for _, symbol in ipairs(data) do
+        if callable_symbol_kinds[symbol.kind] then
+            symbol.name = strip_trailing_parameters(symbol.name)
+        end
+    end
+
+    return navic.format_data(data)
+end
+
 -- Copilot
 local copilot = {'zbirenbaum/copilot.lua',
     config = function()
@@ -306,8 +356,8 @@ local copilot = {'zbirenbaum/copilot.lua',
                 advanced = {
                     listCount = 10, -- #for panel
                     inlineSuggestCount = 3, -- #for getCompletions
-                    temperature = 0.5,
-                    top_p = 0.95,
+                    temperature = 0.8,
+                    top_p = 0.90,
                 }
             }
         })
@@ -513,12 +563,14 @@ local ninety_nine = {"ThePrimeagen/99",
 local plugins = {
     tokyonight,
     mason,
-    indent_blankline,
+    --blankline is kind of distracting
+    -- indent_blankline,
     treesitter,
     telescope,
     fff,
     go_up,
     lspconfig,
+    navic,
     copilot,
     powershell,
     blink_compat,
