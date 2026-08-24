@@ -373,10 +373,22 @@ local powershell = {'TheLeoP/powershell.nvim',
     }
 }
 
+local cmp_buffer = {'hrsh7th/cmp-buffer',
+    config = function()
+        local source = require('cmp_buffer')
+        local get_keyword_pattern = source.get_keyword_pattern
+        source.get_keyword_pattern = function(self, params)
+            params = params or {option = {}}
+            return get_keyword_pattern(self, params)
+        end
+    end,
+}
+
 -- compat layer for nvim.cmp -> blink.cmp
 local blink_compat = {'saghen/blink.compat',
     -- use v2.* for blink.cmp v1.*
     version = '2.*',
+    dependencies = {cmp_buffer},
     lazy = true,
     -- make sure to set opts so that lazy.nvim calls blink.compat's setup
     opts = {},
@@ -419,7 +431,7 @@ local blink_cmp = {'saghen/blink.cmp',
             },
             providers = {
                 lsp = {
-                    fallback = {},
+                    fallbacks = {},
                     transform_items = (function()
                         local exclusions = {
                             ['else'] = true,
@@ -446,6 +458,29 @@ local blink_cmp = {'saghen/blink.cmp',
                             end, items)
                         end
                     end)()
+                },
+                -- cmp-buffer replaces blink's builtin buffer source: it
+                -- keeps a watched word index with no total size budget,
+                -- so large files and many windows are not silently dropped
+                buffer = {
+                    name = 'buffer',
+                    module = 'blink.compat.source',
+                    transform_items = function(_, items)
+                        local kind = vim.lsp.protocol.CompletionItemKind.Text
+                        for _, item in ipairs(items) do
+                            item.kind = kind
+                        end
+                        return items
+                    end,
+                    opts = {
+                        get_bufnrs = function()
+                            local bufs = {}
+                            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                                bufs[vim.api.nvim_win_get_buf(win)] = true
+                            end
+                            return vim.tbl_keys(bufs)
+                        end
+                    }
                 },
                 copilot = {
                     name = 'copilot',
