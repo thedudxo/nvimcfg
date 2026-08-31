@@ -410,8 +410,7 @@ local blink_cmp = {'saghen/blink.cmp',
             ['<C-space>'] = {
                 function(cmp)
                     cmp.show({ providers = {
-                        'copilot',
-                        'snippets'
+                        'copilot'
                         }
                     })
                 end
@@ -426,8 +425,7 @@ local blink_cmp = {'saghen/blink.cmp',
                 'lsp',
                 'buffer',
                 'snippets',
-                'path',
-                'copilot'
+                'path'
             },
             providers = {
                 lsp = {
