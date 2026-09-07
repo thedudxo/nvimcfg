@@ -302,6 +302,7 @@ end, 1)
 local navic = {'SmiteshP/nvim-navic',
     opts = {
         lsp = {auto_attach = true},
+        icons = {enabled = false},
         depth_limit = 1,
         depth_limit_indicator = "",
         separator = "",
@@ -418,8 +419,7 @@ local blink_cmp = {'saghen/blink.cmp',
             },
         },
         appearance = {
-            use_nvim_cmp_as_default = true,
-            nerd_font_variant = 'mono'
+            use_nvim_cmp_as_default = true
         },
         sources = {
             default = {
@@ -491,6 +491,14 @@ local blink_cmp = {'saghen/blink.cmp',
         },
         signature = { enabled = true },
         completion = {
+            menu = {
+                draw = {
+                    columns = {
+                        { "label", "label_description", gap = 1 },
+                        { "kind" },
+                    },
+                },
+            },
             documentation = {
               auto_show = true,
               auto_show_delay_ms = 200,
