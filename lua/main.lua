@@ -129,6 +129,7 @@ local tokyonight = {"folke/tokyonight.nvim",
             hl["@operator"] = { fg = "#9fc6c9", bg = c.bg}
             hl.Special = { fg = "#9fc6c9", bg = c.bg}
             hl.PreProc = { fg = "#9fc6c9", bg = c.bg}
+            hl["@exclamation"] = { fg = c.orange, bg = c.bg}
 
             hl.String = { fg = "#64916f", bg = c.bg}
 
