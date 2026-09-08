@@ -476,6 +476,7 @@ local blink_cmp = {'saghen/blink.cmp',
             providers = {
                 lsp = {
                     fallbacks = {},
+                    score_offset = 10,
                     transform_items = (function()
                         local exclusions = {
                             ['else'] = true,
