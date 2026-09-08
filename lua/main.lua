@@ -200,6 +200,48 @@ local telescope = {'nvim-telescope/telescope.nvim',
 
         vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find,
             {desc = 'Telescope fuzzy search in buffer' })
+
+        local entry_display =
+            require('telescope.pickers.entry_display')
+        local displayer = entry_display.create {
+            items = { { remaining = true } },
+        }
+        local entry_maker = function(entry)
+            local symbol_type, symbol_name =
+                entry.text:match('%[(.+)%]%s+(.*)')
+            return {
+                value = entry,
+                ordinal = symbol_name,
+                display = function(e)
+                    return displayer { e.symbol_name }
+                end,
+                filename = vim.api.nvim_buf_get_name(
+                    entry.bufnr or 0),
+                lnum = entry.lnum,
+                col = entry.col,
+                symbol_name = symbol_name,
+                symbol_type = symbol_type,
+            }
+        end
+
+        local symbol_picker = function(symbols)
+            builtin.lsp_document_symbols({
+                symbols = symbols,
+                previewer = false,
+                show_line = false,
+                tiebreak = function() return false end,
+                entry_maker = entry_maker,
+            })
+        end
+
+        vim.keymap.set('n', '<leader>fr', function()
+            symbol_picker({ 'Function', 'Method' })
+        end, { desc = 'Telescope document functions/methods' })
+
+        vim.keymap.set('n', '<leader>ft', function()
+            symbol_picker({ 'Struct', 'Class', 'Enum' })
+        end, { desc = 'Telescope document types' })
+
         require("telescope").setup {
             defaults = {
                 path_display = {"filename_first"}
