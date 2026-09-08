@@ -66,8 +66,10 @@ vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
 vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true })
 
 -- J and K to scroll half a page up/down
-vim.keymap.set({'n', 'v'}, 'K', '<C-u>', { noremap = true })
-vim.keymap.set({'n', 'v'}, 'J', '<C-d>', { noremap = true })
+vim.keymap.set({'n', 'v'}, 'K', '<C-u>', {noremap = true })
+vim.keymap.set({'n', 'v'}, 'J', '<C-d>', {noremap = true })
+-- disable the default scroll keys so scroll size doesnt accidentaly change
+vim.keymap.set({'n', 'v'}, '<C-d>', '<nop>', {noremap = true })
 -- K got stood on
 vim.keymap.set('n', '<C-k>', '<cmd>normal! K<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { noremap = true })
