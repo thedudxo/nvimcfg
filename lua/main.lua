@@ -504,6 +504,9 @@ local blink_cmp = {'saghen/blink.cmp',
                         end
                     end)()
                 },
+                snippets = {
+                    score_offset = 20,
+                },
                 -- cmp-buffer replaces blink's builtin buffer source: it
                 -- keeps a watched word index with no total size budget,
                 -- so large files and many windows are not silently dropped
