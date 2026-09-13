@@ -89,6 +89,20 @@ if vim.g.neovide then
     vim.keymap.set('i', '<C-v>', '<ESC>l"+Pli') -- Paste insert mode
 end
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "odin",
+    callback = function(event)
+        local options = vim.bo[event.buf]
+        options.makeprg =
+            "odin check . -error-pos-style:unix -terse-errors"
+        options.errorformat = table.concat({
+            "%f:%l:%c: %trror: %m",
+            "%f:%l:%c: %tarning: %m",
+            "%-G%.%#",
+        }, ",")
+    end,
+})
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
