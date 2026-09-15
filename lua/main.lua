@@ -137,6 +137,7 @@ local tokyonight = {"folke/tokyonight.nvim",
             hl.Normal = { fg = c.fg, bg = c.bg }
             hl.Constant = { fg = c.fg, bg = c.bg }
             hl["@variable"] = { fg = c.fg, bg = c.bg }
+            hl["@property"] = { fg = c.fg, bg = c.bg }
             hl["@variable.member"] = { fg = c.fg, bg = c.bg }
             hl["@variable.parameter"] = { fg = c.fg, bg = c.bg }
             hl.Function = { fg = "#cccccc", bg = c.bg}
