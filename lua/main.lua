@@ -404,7 +404,6 @@ end
 
 -- Copilot
 local copilot = {'zbirenbaum/copilot.lua',
-    version = "3.0.0",
     config = function()
         require('copilot').setup({
             suggestion = {
