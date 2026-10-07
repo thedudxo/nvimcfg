@@ -17,6 +17,7 @@ vim.opt.signcolumn = "no"
 -- Minimal lines to keep above/below cursor
 -- Big number keeps the cursor centerd
 vim.opt.scrolloff = 999
+vim.opt.scroll = 0
 
 -- 80 column indicator
 vim.opt.colorcolumn = "81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98"
@@ -65,11 +66,19 @@ vim.keymap.set('n', '<leader><Enter>', 'DO<C-r>"<Esc>_i', {noremap = true})
 -- split string at cursor
 vim.keymap.set('n', '<leader>s<CR>', 'i"<Esc>la +<CR>"<Esc>', { noremap = true })
 
+vim.keymap.set('n', '*',
+    '<Cmd>let w:word_search_view = winsaveview() | try'
+        .. ' | execute "keepjumps normal! *" | finally'
+        .. ' | call winrestview(w:word_search_view)'
+        .. ' | unlet w:word_search_view | endtry<CR>',
+    { desc = 'Highlight word under cursor' })
+
 -- J and K to scroll half a page up/down
-vim.keymap.set({'n', 'v'}, 'K', '<C-u>', {noremap = true })
-vim.keymap.set({'n', 'v'}, 'J', '<C-d>', {noremap = true })
+vim.keymap.set({'n', 'v'}, 'K', '<Cmd>normal! <C-u><CR>', {noremap = true })
+vim.keymap.set({'n', 'v'}, 'J', '<Cmd>normal! <C-d><CR>', {noremap = true })
 -- disable the default scroll keys so scroll size doesnt accidentaly change
-vim.keymap.set({'n', 'v'}, '<C-d>', '<nop>', {noremap = true })
+vim.keymap.set({'n', 'v'}, '<C-u>', '<Cmd>normal! <C-u><CR>', {noremap = true })
+vim.keymap.set({'n', 'v'}, '<C-d>', '<Cmd>normal! <C-d><CR>', {noremap = true })
 -- K got stood on
 vim.keymap.set('n', '<C-k>', '<cmd>normal! K<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { noremap = true })
