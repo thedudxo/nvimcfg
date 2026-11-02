@@ -170,6 +170,8 @@ local tokyonight = {"folke/tokyonight.nvim",
                 underline = true, bold = true}
             hl["@keyword.conditional"] = { fg = c.orange}
             hl.Statement = { fg = c.orange, bg = c.bg }
+
+            hl.Comment = { fg = "#a39177" }
         end,
     },
     config = function(_, opts)
