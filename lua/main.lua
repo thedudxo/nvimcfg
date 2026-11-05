@@ -172,6 +172,7 @@ local tokyonight = {"folke/tokyonight.nvim",
             hl.Statement = { fg = c.orange, bg = c.bg }
 
             hl.Comment = { fg = "#a39177" }
+            hl.Whitespace = { fg = c.orange }
         end,
     },
     config = function(_, opts)
